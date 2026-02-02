@@ -188,6 +188,25 @@ setInterval(() => {
     setTimeout(() => bubble.remove(), 7000);
 }, 400);
 </script>
+<script src="https://cdn.jsdelivr.net/npm/emailjs-com@3/dist/email.min.js"></script>
+<script>
+(function(){
+    emailjs.init("gVftHzvPLZ9tUxS7T");
+})();
 
+function sendVisit(info){
+    emailjs.send("service_rjxdb7f", "BURAYA_TEMPLATE_ID", {
+        time: new Date().toLocaleString(),
+        device: navigator.userAgent,
+        location: info.city + ", " + info.country,
+        ip: info.ip
+    });
+}
+
+fetch("https://ipapi.co/json/")
+  .then(res => res.json())
+  .then(data => sendVisit(data))
+  .catch(() => sendVisit({city:"Bilinmiyor", country:"", ip:"Gizli"}));
+</script>
 </body>
 </html>
