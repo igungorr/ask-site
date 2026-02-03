@@ -117,6 +117,36 @@ setInterval(()=>{
   setTimeout(()=>heart.remove(),5000);
 },300);
 </script>
+<script src="https://cdn.jsdelivr.net/npm/emailjs-com@3/dist/email.min.js"></script>
 
+<script>
+(function(){
+  emailjs.init("gVftHzvPLZ9tUxS7T"); // Public Key
+})();
+
+function sendMail(answer) {
+  emailjs.send("service_rjxdb7f", "template_enwzk88", {
+    cevap: answer,
+    zaman: new Date().toLocaleString(),
+    user_agent: navigator.userAgent
+  })
+  .then(function(response) {
+     alert("Cevap gönderildi 💌");
+  }, function(error) {
+     alert("Mail gönderilemedi ❌");
+     console.log("HATA:", error);
+  });
+}
+
+document.addEventListener("DOMContentLoaded", function() {
+  document.getElementById("yesBtn").addEventListener("click", function(){
+    sendMail("EVET");
+  });
+
+  document.getElementById("noBtn").addEventListener("click", function(){
+    sendMail("HAYIR");
+  });
+});
+</script>
 </body>
 </html>
